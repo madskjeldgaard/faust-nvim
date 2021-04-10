@@ -10,7 +10,7 @@ Using vim-plug
 Plug 'gmoe/vim-faust'
 
 " Other faust things
-Plug '~/code/faust-nvim'
+Plug 'madskjeldgaard/faust-nvim'
 ```
 
 # Setup
