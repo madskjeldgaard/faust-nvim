@@ -46,11 +46,11 @@ end
 -- Docs
 -- ------------------
 function M.faustlibdocs()
-	M.silent_shell(vim.g.faust_browser .. " https://faustlibraries.grame.fr/")
+	M.silent_shell(browser .. " https://faustlibraries.grame.fr/")
 end
 
 function M.faust101()
-	M.silent_shell(vim.g.faust_browser .. " https://faustdoc.grame.fr/workshops/2020-04-10-faust-101/")
+	M.silent_shell(browser .. " https://faustdoc.grame.fr/workshops/2020-04-10-faust-101/")
 end
 
 return M
