@@ -43,6 +43,11 @@ function M.faust2scinstall()
 	M.terminal(buildcmd .. " && " .. installcmd)
 end
 
+function M.faust2teensylib()
+	M.terminal("faust2teensy -lib %")
+end
+
+
 -- ------------------
 -- Docs
 -- ------------------
@@ -50,8 +55,16 @@ function M.faustlibdocs()
 	M.silent_shell(browser .. " https://faustlibraries.grame.fr/")
 end
 
+function M.faustcompilerdocs()
+	M.silent_shell(browser .. " https://faustdoc.grame.fr/manual/compiler/")
+end
+
 function M.faust101()
 	M.silent_shell(browser .. " https://faustdoc.grame.fr/workshops/2020-04-10-faust-101/")
+end
+
+function M.faustsyntax()
+	M.silent_shell(browser .. " https://faustdoc.grame.fr/manual/syntax/")
 end
 
 -- ------------------
