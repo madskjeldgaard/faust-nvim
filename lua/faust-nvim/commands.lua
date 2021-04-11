@@ -3,6 +3,7 @@ local commands = {
 	"Faust2SCInstall lua require('faust-nvim').faust2scinstall()",
 	"FaustDocs101 lua require('faust-nvim').faust101()",
 	"FaustDocsLib lua require('faust-nvim').faustlibdocs()",
+	"FaustExamples lua require('faust-nvim').faustexamples()",
 }
 
 for index = 1, #commands do
