@@ -1,3 +1,12 @@
+# Features
+
+- Commands for compiling and installing as SuperCollder UGens, to Teensy and others
+- Fuzzy find examples
+- Commands for looking up docs
+- Correct comment string for faust filetype
+- Faust snippets (snippets.nvim format)
+- Other small handdy bits and pieces
+
 # Requirements
 - Unix or linux system
 - Nvim >= v0.5
