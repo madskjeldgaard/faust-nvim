@@ -13,6 +13,9 @@ function M.setup()
 	-- Register commands
 	require'faust-nvim/commands'
 
+	-- If using Tim Pope's comment plugin
+	vim.cmd([[autocmd FileType faust setlocal commentstring=//\ %s]])
+
 	-- Default keymaps
 	-- if mapkeys == true then
 	-- 	M.keymaps()
