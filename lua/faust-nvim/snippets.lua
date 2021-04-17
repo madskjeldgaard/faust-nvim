@@ -44,10 +44,10 @@ FaustSnips["sl"] = FaustSnips["vslider"]
 
 
 -- delays
-FaustSnips["sdelay"] = [[sdelay(${1:maxdelay},${2:interptime},${3:delaytime})]];
-FaustSnips["fdelay"] = [[fdelay(${1:maxdelay},${2:delaytime})]];
-FaustSnips["delay"] = [[delay(${1:maxdelay},${2:delaytime})]];
-FaustSnips["fdelayltv"] = [[fdelayltv(${1:order},${2:maxdelay}, ${3:delay}, ${4:inputsignal})]];
-FaustSnips["fdelaylti"] = [[fdelaylti(${1:order},${2:maxdelay}, ${3:delay}, ${4:inputsignal})]];
+FaustSnips["sdelay"] = [[de.sdelay(${1:maxdelay},${2:interptime},${3:delaytime})]];
+FaustSnips["fdelay"] = [[de.fdelay(${1:maxdelay},${2:delaytime})]];
+FaustSnips["delay"] = [[de.delay(${1:maxdelay},${2:delaytime})]];
+FaustSnips["fdelayltv"] = [[de.fdelayltv(${1:order},${2:maxdelay}, ${3:delay}, ${4:inputsignal})]];
+FaustSnips["fdelaylti"] = [[de.fdelaylti(${1:order},${2:maxdelay}, ${3:delay}, ${4:inputsignal})]];
 
 return FaustSnips
