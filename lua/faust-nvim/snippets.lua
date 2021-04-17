@@ -1,5 +1,7 @@
 local FaustSnips = {}
 
+FaustSnips["import"] = [[import("${1:stdfaust}.lib");]];
+
 FaustSnips["example"] = [[import("stdfaust.lib");
 
 normFreq = vslider("freq",0.1,0.0,1.0,0.1);
@@ -39,5 +41,13 @@ FaustSnips["vslider"] = {
 
 FaustSnips["vsl"] = FaustSnips["vslider"]
 FaustSnips["sl"] = FaustSnips["vslider"]
+
+
+-- delays
+FaustSnips["sdelay"] = [[sdelay(${1:maxdelay},${2:interptime},${3:delaytime})]];
+FaustSnips["fdelay"] = [[fdelay(${1:maxdelay},${2:delaytime})]];
+FaustSnips["delay"] = [[delay(${1:maxdelay},${2:delaytime})]];
+FaustSnips["fdelayltv"] = [[fdelayltv(${1:order},${2:maxdelay}, ${3:delay}, ${4:inputsignal})]];
+FaustSnips["fdelaylti"] = [[fdelaylti(${1:order},${2:maxdelay}, ${3:delay}, ${4:inputsignal})]];
 
 return FaustSnips
