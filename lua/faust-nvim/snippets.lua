@@ -1,7 +1,14 @@
 local FaustSnips = {}
 
-FaustSnips["import"] = [[import("${1:stdfaust}.lib");]];
 
+-- Header stuff
+FaustSnips["meta"] = [[declare name "${1:MyProgram}";
+declare author "${2:MySelf}";
+declare copyright "${3:MyCompany}";
+declare version "${4:1.00}";
+declare license "${5:BSD}";]];
+
+FaustSnips["import"] = [[import("${1:stdfaust}.lib");]];
 FaustSnips["example"] = [[import("stdfaust.lib");
 
 normFreq = vslider("freq",0.1,0.0,1.0,0.1);
@@ -9,6 +16,8 @@ Q = vslider("Q",0.1,0.0,1.0,0.1);
 
 process = _ : ve.korg35LPF(normFreq,Q) : _;]]
 
+
+-- Gui stuff
 FaustSnips["hslider"] = {
 	"hslider(",
 	{ order=1, id="name", default="vol", is_input=true, transform=function(S) return "\"" .. S.v .. "\"" end},
@@ -42,12 +51,14 @@ FaustSnips["vslider"] = {
 FaustSnips["vsl"] = FaustSnips["vslider"]
 FaustSnips["sl"] = FaustSnips["vslider"]
 
-
 -- delays
 FaustSnips["sdelay"] = [[de.sdelay(${1:maxdelay},${2:interptime},${3:delaytime})]];
 FaustSnips["fdelay"] = [[de.fdelay(${1:maxdelay},${2:delaytime})]];
 FaustSnips["delay"] = [[de.delay(${1:maxdelay},${2:delaytime})]];
 FaustSnips["fdelayltv"] = [[de.fdelayltv(${1:order},${2:maxdelay}, ${3:delay}, ${4:inputsignal})]];
 FaustSnips["fdelaylti"] = [[de.fdelaylti(${1:order},${2:maxdelay}, ${3:delay}, ${4:inputsignal})]];
+
+-- composition
+FaustSnips["par"] = [[par(${1:i},${2:numIterations}${3:expression})]];
 
 return FaustSnips
