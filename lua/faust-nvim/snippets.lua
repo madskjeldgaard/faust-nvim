@@ -6,7 +6,7 @@ FaustSnips["meta"] = [[declare name "${1:MyProgram}";
 declare author "${2:MySelf}";
 declare copyright "${3:MyCompany}";
 declare version "${4:1.00}";
-declare license "${5:BSD}";]];
+declare license "${5:GPL}";]];
 
 FaustSnips["import"] = [[import("${1:stdfaust}.lib");]];
 FaustSnips["example"] = [[import("stdfaust.lib");
