@@ -13,6 +13,21 @@ Plug 'gmoe/vim-faust'
 Plug 'madskjeldgaard/faust-nvim'
 ```
 
+Using packer.nvim
+```lua
+use {
+    'madskjeldgaard/faust-nvim',
+        ft = "faust", -- only load plugin on .dsp files
+        config = function()
+            require 'faust-nvim'.setup()
+            local opts = { noremap = true, silent = true }
+    vim.api.nvim_set_keymap('n', '<A-h>', ':FaustExamples<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<C-e>', ':Faust2SCInstall<cr>', opts)
+        end,
+        requires = 'gmoe/vim-faust'
+}
+```
+
 # Setup
 
 call the .setup function via lua:
