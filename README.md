@@ -21,8 +21,9 @@ use {
         config = function()
             require 'faust-nvim'.setup()
             local opts = { noremap = true, silent = true }
-    vim.api.nvim_set_keymap('n', '<A-h>', ':FaustExamples<CR>', opts)
-        vim.api.nvim_set_keymap('n', '<C-e>', ':Faust2SCInstall<cr>', opts)
+            -- mapping examples
+            vim.api.nvim_set_keymap('n', '<A-h>', ':FaustExamples<CR>', opts)
+            vim.api.nvim_set_keymap('n', '<C-e>', ':Faust2SCInstall<cr>', opts)
         end,
         requires = 'gmoe/vim-faust'
 }
