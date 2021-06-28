@@ -16,6 +16,9 @@ function M.setup()
 	-- If using Tim Pope's comment plugin
 	vim.cmd([[autocmd FileType faust setlocal commentstring=//\ %s]])
 
+	-- Set .lib filetypes to faust
+	vim.cmd([[autocmd BufEnter *.lib setlocal filetype=faust]])
+
 	-- Default keymaps
 	-- if mapkeys == true then
 	-- 	M.keymaps()
