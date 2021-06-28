@@ -66,6 +66,6 @@ FaustSnips["par"] = [[par(${1:i},${2:numIterations}${3:expression($1)})]];
 FaustSnips["seq"] = [[seq(${1:i},${2:numIterations}${3:expression($1)})]];
 FaustSnips["sum"] = [[sum(${1:i},${2:numIterations}${3:expression($1)})]];
 
-
+FaustSnips["environment"] = [[${1:mk} = environment { $2 };]]
 
 return FaustSnips
