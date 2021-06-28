@@ -62,9 +62,9 @@ FaustSnips["fdelaylti"] = [[de.fdelaylti(${1:order},${2:maxdelay}, ${3:delay}, $
 FaustSnips["pan"] = [[sp.panner(${1:pan})]];
 
 -- composition
-FaustSnips["par"] = [[par(${1:i},${2:numIterations}${3:expression($1)})]];
-FaustSnips["seq"] = [[seq(${1:i},${2:numIterations}${3:expression($1)})]];
-FaustSnips["sum"] = [[sum(${1:i},${2:numIterations}${3:expression($1)})]];
+FaustSnips["par"] = [[par(${1:i},${2:numIterations},${3:expression($1)})]];
+FaustSnips["seq"] = [[seq(${1:i},${2:numIterations},${3:expression($1)})]];
+FaustSnips["sum"] = [[sum(${1:i},${2:numIterations},${3:expression($1)})]];
 
 FaustSnips["environment"] = [[${1:mk} = environment { $2 };]]
 FaustSnips["env"] = FaustSnips["environment"]
