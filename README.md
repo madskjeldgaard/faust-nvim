@@ -2,13 +2,14 @@
 
 - Commands for compiling and installing as SuperCollder UGens, to Teensy and others
 - Fuzzy find examples
-- Commands for looking up docs
+- Faust documentation is available as native vim documentation after runnning `:FaustGenerateHelp`. Then you can for example run `:h delays.lib.`
+- Commands for looking up docs on the web
 - Correct comment string for faust filetype
 - Faust snippets (snippets.nvim format)
 - Other small handdy bits and pieces
 
 # Requirements
-- Unix or linux system
+- MacOS or linux system
 - Nvim >= v0.5
 
 # installation
