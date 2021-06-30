@@ -33,9 +33,13 @@ function get_converter(){
 	URL="https://foosoft.net/projects/md2vim/dl/$CFILE"
 	CONVERTER=$DATADIR/${CFILE%.tar.gz}/md2vim
 
+	if [[ -z "$CONVERTER" ]]; then
 	wget $URL --directory-prefix=$DATADIR/ &&\
 		tar -xvf $DATADIR/$CFILE --directory=$DATADIR/ && \
 		rm $DATADIR/$CFILE
+	else
+			echo "Detected converter already exists: $CONVERTER"
+	fi
 }
 
 function init(){
@@ -56,11 +60,14 @@ function faustlib2markdownfiles(){
 		FAUSTMD="$DATADIR/md/${FAUSTFILE%.lib}.md"
 		FAUSTHELPFILE="$HELPDIR/${FAUSTFILE%.lib}.txt"
 
-		# Convert faust lib to markdown
-		faust2md "$FAUSTLIB/$FAUSTFILE"	> $FAUSTMD 
+		# Convert faust lib to markdown (sed command removes extranous ticks)
+		faust2md "$FAUSTLIB/$FAUSTFILE"	| sed 's/`//g' > $FAUSTMD 
 
 		# Call converter and create
-		./$CONVERTER $FAUSTMD $FAUSTHELPFILE
+		./$CONVERTER -desc="Faust library documentation" $FAUSTMD $FAUSTHELPFILE 
+
+		# Create footer
+		echo "vim:tw=78:ts=8:ft=help:norl:" >> $FAUSTHELPFILE
 
 	done
 
