@@ -5,8 +5,12 @@
 # }
 #
 # for FAUSTFILE in "$(find . /usr/share/faust | grep "\.lib" )"; do
-DATADIR=data
-HELPDIR=doc
+PLUGIN_PATH=$1
+
+[[ -z $PLUGIN_PATH ]] && echo "No plugin path supplied..." && exit 1
+
+DATADIR=$PLUGIN_PATH/data
+HELPDIR=$PLUGIN_PATH/doc
 FAUSTLIB=/usr/share/faust
 
 function detect_architecture(){
@@ -33,10 +37,10 @@ function get_converter(){
 	URL="https://foosoft.net/projects/md2vim/dl/$CFILE"
 	CONVERTER=$DATADIR/${CFILE%.tar.gz}/md2vim
 
-	if [[ -z "$CONVERTER" ]]; then
-	wget $URL --directory-prefix=$DATADIR/ &&\
-		tar -xvf $DATADIR/$CFILE --directory=$DATADIR/ && \
-		rm $DATADIR/$CFILE
+	if [[ ! -f "$CONVERTER" ]]; then
+		wget $URL --directory-prefix=$DATADIR/ &&\
+			tar -xvf $DATADIR/$CFILE --directory=$DATADIR/ && \
+			rm $DATADIR/$CFILE
 	else
 			echo "Detected converter already exists: $CONVERTER"
 	fi
@@ -46,8 +50,9 @@ function init(){
 	mkdir -p $DATADIR
 
 	detect_architecture && \
-	get_converter && \
-		faustlib2markdownfiles
+		get_converter && \
+		faustlib2markdownfiles &&\
+		echo "done generating faust help files for vim" && exit 0
 }
 
 function faustlib2markdownfiles(){
@@ -64,7 +69,7 @@ function faustlib2markdownfiles(){
 		faust2md "$FAUSTLIB/$FAUSTFILE"	| sed 's/`//g' > $FAUSTMD 
 
 		# Call converter and create
-		./$CONVERTER -desc="Faust library documentation" $FAUSTMD $FAUSTHELPFILE 
+		$CONVERTER -desc="Faust library documentation" $FAUSTMD $FAUSTHELPFILE 
 
 		# Create footer
 		echo "vim:tw=78:ts=8:ft=help:norl:" >> $FAUSTHELPFILE

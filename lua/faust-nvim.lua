@@ -35,6 +35,10 @@ function M.silent_shell(cmd)
 	vimcmd("silent exe '! " .. cmd .. " &'")
 end
 
+function M.shell(cmd)
+	vimcmd("exe '! " .. cmd .. " &'")
+end
+
 -- ------------------
 -- Compilation
 -- ------------------
@@ -79,6 +83,78 @@ end
 
 function M.faustexamples()
 	vim.cmd(":FZF " .. faustexamples)
+end
+
+------------------
+--- Table
+------------------
+
+--- Get table length
+function M.tbl_len(T)
+  local count = 0
+  for _ in pairs(T) do
+    count = count + 1
+  end
+  return count
+end
+
+------------------
+--- Path
+------------------
+
+-- This stuff is from scnvim, thanks scnvim!
+--- Get the system path separator
+M.is_windows = vim.loop.os_uname().sysname:match('Windows')
+M.path_sep = M.is_windows and '\\' or '/'
+
+--- Get the root directory of the plugin.
+function M.get_faust_nvim_root_dir()
+  local package_path = debug.getinfo(1).source:gsub('@', '')
+  package_path = vim.split(package_path, M.path_sep, true)
+  -- find index of plugin root dir
+  local index = 1
+  for i, v in ipairs(package_path) do
+    if v == 'faust-nvim' then
+      index = i
+      break
+    end
+  end
+  local path_len = M.tbl_len(package_path)
+  if index == 1 or index == path_len then
+    error('[faust-nvim] could not find plugin root dir')
+  end
+  local path = {}
+  for i, v in ipairs(package_path) do
+    if i > index then
+      break
+    end
+    path[i] = v
+  end
+  local dir = ''
+  for _, v in ipairs(path) do
+    -- first element is empty on unix
+    if v == '' then
+      dir = M.path_sep
+    else
+      dir = dir .. v .. M.path_sep
+    end
+  end
+  assert(dir ~= '', '[faust-nvim] Could not get faust-nvim root path')
+  dir = dir:sub(1, -2) -- delete trailing slash
+  return dir
+end
+
+
+-- ------------------
+-- docs
+-- ------------------
+
+function M.generate_faust_docs()
+	local plugin_dir=M.get_faust_nvim_root_dir()
+	M.terminal(plugin_dir .. "/scripts/generate_helpfiles.sh " .. plugin_dir)
+
+	-- @FIXME this results in tons of "duplicate tags" errors
+	vim.fn.helptags(plugin_dir .. "/doc")
 end
 
 return M
