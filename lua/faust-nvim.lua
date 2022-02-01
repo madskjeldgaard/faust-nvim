@@ -12,6 +12,7 @@ local vimcmd = api.nvim_command
 function M.setup()
 	-- Register commands
 	require'faust-nvim/commands'
+	require'faust-nvim/compiler'.register_command()
 
 	-- If using Tim Pope's comment plugin
 	vim.cmd([[autocmd FileType faust setlocal commentstring=//\ %s]])
@@ -56,7 +57,6 @@ end
 function M.faust2teensylib()
 	M.terminal("faust2teensy -lib %")
 end
-
 
 -- ------------------
 -- Docs
@@ -143,7 +143,6 @@ function M.get_faust_nvim_root_dir()
   dir = dir:sub(1, -2) -- delete trailing slash
   return dir
 end
-
 
 -- ------------------
 -- docs
