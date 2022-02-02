@@ -149,11 +149,16 @@ end
 -- ------------------
 
 function M.generate_faust_docs()
+	print("Generating faust documentation...")
 	local plugin_dir=M.get_faust_nvim_root_dir()
 	M.terminal(plugin_dir .. "/scripts/generate_helpfiles.sh " .. plugin_dir)
 
 	-- @FIXME this results in tons of "duplicate tags" errors
 	vim.fn.helptags(plugin_dir .. "/doc")
+end
+
+function M.post_install()
+	M.generate_faust_docs()
 end
 
 return M
