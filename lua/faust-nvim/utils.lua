@@ -1,10 +1,10 @@
 local M = {}
 
--- Turn lines into one long string
+-- Turn lines into one long string with spaces between each item
 function M.flatten_to_string(lines_table, keep_linebreaks)
 	local outstring = ""
 	for _, line in pairs(lines_table) do
-		outstring = outstring .. line
+		outstring = outstring .. " " .. line
 		if keep_linebreaks then
 			outstring = outstring .. "\n"
 		end
@@ -25,6 +25,7 @@ end
 
 function M.make(makecommand, arguments)
 	local args_string = M.flatten_to_string(arguments)
+	print(args_string)
 	makecommand = makecommand .. " " .. args_string
 	makecommand = string.gsub(makecommand, "%s+", "\\ ")
 	-- vim.bo.makeprg = makecommand
