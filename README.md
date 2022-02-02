@@ -1,5 +1,9 @@
 # Features
 
+![assets/faust2.gif](assets/faust2.gif) 
+
+![assets/examples.gif](assets/examples.gif) 
+
 - Commands for compiling and installing as SuperCollder UGens, to Teensy and others
 - Fuzzy find examples
 - Faust documentation is available as native vim documentation after runnning `:FaustGenerateHelp`. Then you can for example run `:h delays.lib.`
