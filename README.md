@@ -34,7 +34,7 @@ Using packer.nvim
 use {
     'madskjeldgaard/faust-nvim',
         ft = "faust", -- only load plugin on .dsp files
-		run = require'faust-nvim'.post_install, -- Generate documentation etc
+		-- run = require'faust-nvim'.post_install, -- Generate documentation etc (currently doesn't work it seems)
         config = function()
             require 'faust-nvim'.setup()
         end,
