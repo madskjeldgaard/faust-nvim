@@ -2,7 +2,6 @@ local M = {}
 
 local browser = vim.g.faust_browser or "firefox"
 local mapkeys = vim.g.faust_default_keymaps or true
-local scflags = vim.g.faust_compile_sc_flags or "-noprefix"
 local scinstalldir = vim.g.faust_sc_install_dir or "$HOME/.local/share/SuperCollider/Extensions/Faust"
 local faustexamples = vim.g.faust_examples_dir or "/usr/share/faust/examples"
 
@@ -38,24 +37,6 @@ end
 
 function M.shell(cmd)
 	vimcmd("exe '! " .. cmd .. " &'")
-end
-
--- ------------------
--- Compilation
--- ------------------
-function M.faust2sc()
-	M.terminal("faust2supercollider " .. scflags .. " %")
-end
-
-function M.faust2scinstall()
-	local buildcmd = "faust2supercollider " .. scflags .. " %"
-	local installcmd = "cp -v " .. vim.fn.expand("%:r") .. ".s[co] " .. scinstalldir
-	M.silent_shell("mkdir " .. scinstalldir)
-	M.terminal(buildcmd .. " && " .. installcmd)
-end
-
-function M.faust2teensylib()
-	M.terminal("faust2teensy -lib %")
 end
 
 -- ------------------

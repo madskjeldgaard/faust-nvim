@@ -11,6 +11,8 @@
 # Requirements
 - MacOS or linux system
 - Nvim >= v0.5
+- faust
+- [nvim-fzf](https://github.com/vijaymarupudi/nvim-fzf)
 
 # installation
 Using vim-plug
@@ -31,12 +33,11 @@ use {
 		run = require'faust-nvim'.post_install, -- Generate documentation etc
         config = function()
             require 'faust-nvim'.setup()
-            local opts = { noremap = true, silent = true }
-            -- mapping examples
-            vim.api.nvim_set_keymap('n', '<A-h>', ':FaustExamples<CR>', opts)
-            vim.api.nvim_set_keymap('n', '<C-e>', ':Faust2SCInstall<cr>', opts)
         end,
-        requires = 'gmoe/vim-faust'
+        requires = {
+			'gmoe/vim-faust',
+			'vijaymarupudi/nvim-fzf'
+		}
 }
 ```
 
@@ -52,3 +53,11 @@ And then if you want to use the snippets with snippets.nvim, import the snippets
 ```lua
 require'snippets'.snippets["faust"] = require'faust-nvim/snippets'
 ```
+
+# The Faust2 command
+
+The plugin comes with the `:Faust2` command which will compile the file that you are in using any of the faust2appl-scripts.
+
+You can either run `:Faust2` to get a fuzzy finder selection of the different choices and execute the chosen one, or you can autocomplete the command by writing. For example by just typing `s` and hitting tab: `:Faust2 s<tab>`. Lastly, you can invoke the directly like so: `Faust2 puredata`.
+
+Additionally, anything after the chosen script's name is added to the invocation of the command as additional flags and arguments behind the scenes. For example, to compile SuperCollider UGen's with the `-s` (for SuperNova) option: `:Faust2 sc.py -s`.
