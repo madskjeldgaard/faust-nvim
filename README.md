@@ -1,4 +1,4 @@
-# Features
+# Faust integration for NeoVim
 
 ![assets/faust2.gif](assets/faust2.gif) 
 
