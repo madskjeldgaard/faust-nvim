@@ -11,7 +11,7 @@ PLUGIN_PATH=$1
 
 DATADIR=$PLUGIN_PATH/data
 HELPDIR=$PLUGIN_PATH/doc
-FAUSTLIB=/usr/share/faust
+FAUSTLIB=$2
 
 function detect_architecture(){
 	if [[ "$OSTYPE" == "linux-gnu"* ]]; then

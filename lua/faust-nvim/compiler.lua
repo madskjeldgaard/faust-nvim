@@ -7,7 +7,14 @@ function M.fuzzy_compilers()
 	coroutine.wrap(function()
 
 		local preview = function(item)
-			local handle = io.popen("faust2" .. item[1] .. " -h")
+
+			local helpcmd =  "faust2" .. item[1] .. " -h"
+
+			if vim.g.faust2appls_dir then
+				helpcmd = vim.g.faust2appls_dir .. helpcmd
+			end
+
+			local handle = io.popen(helpcmd)
 			local cmdresult = handle:read("*a")
 			handle:close()
 

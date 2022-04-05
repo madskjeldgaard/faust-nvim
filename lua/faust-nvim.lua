@@ -1,10 +1,9 @@
 local M = {}
 
 local browser = vim.g.faust_browser or "firefox"
-local mapkeys = vim.g.faust_default_keymaps or true
-local scinstalldir = vim.g.faust_sc_install_dir or "$HOME/.local/share/SuperCollider/Extensions/Faust"
 local faustexamples = vim.g.faust_examples_dir or "/usr/share/faust/examples"
-
+vim.g.faust2appls_dir = vim.g.faust2appls_dir or "/bin/"
+vim.g.faustlib_dir = vim.g.faustlib_dir or "/usr/share/faust/"
 local api = vim.api
 local vimcmd = api.nvim_command
 
@@ -133,7 +132,7 @@ end
 function M.generate_faust_docs()
 	print("Generating faust documentation...")
 	local plugin_dir=M.get_faust_nvim_root_dir()
-	M.terminal(plugin_dir .. "/scripts/generate_helpfiles.sh " .. plugin_dir)
+	M.terminal(plugin_dir .. "/scripts/generate_helpfiles.sh " .. plugin_dir .. " " .. vim.g.faustlib_dir)
 
 	-- @FIXME this results in tons of "duplicate tags" errors and so is silenced
 	vim.cmd("silent! helptags " .. plugin_dir .. "/doc/doc")

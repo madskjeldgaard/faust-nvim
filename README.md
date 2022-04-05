@@ -59,6 +59,19 @@ And then if you want to use the snippets with snippets.nvim, import the snippets
 require'snippets'.snippets["faust"] = require'faust-nvim/snippets'
 ```
 
+## Options
+
+Change these options if the values are difference for your system:
+```lua
+-- Location of faust examples
+vim.g.faust_examples_dir = "/usr/share/faust/examples"
+-- Location of faust binaries
+vim.g.faust2appls_dir = "/bin/"
+-- Location of faust libraries
+vim.g.faustlib_dir = "/usr/share/faust/"
+```
+
+# Commands
 ## The Faust2 command
 ![faust2](assets/faust2.png) 
 

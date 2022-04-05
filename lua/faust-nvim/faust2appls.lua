@@ -103,6 +103,11 @@ for _,faust2command in ipairs(faust2appletcommands) do
 	M[command_name] = function (arguments)
 		local file = vim.fn.expand("%")
 		local cmd = string.format(faust2command .. " %s", file)
+
+		if vim.g.faust2appls_dir then
+			cmd = vim.g.faust2appls_dir .. cmd
+		end
+
 		utils.make(cmd,arguments)
 	end
 end
