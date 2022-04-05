@@ -1,10 +1,22 @@
 local M = {}
 local compilers = require"faust-nvim/faust2appls"
 local utils = require"faust-nvim/utils"
+local action = require("fzf.actions").action
 
 function M.fuzzy_compilers()
 	coroutine.wrap(function()
-		local result = require'fzf'.fzf(M.get_faust2_names());
+
+		local preview = function(item)
+			local handle = io.popen("faust2" .. item[1] .. " -h")
+			local cmdresult = handle:read("*a")
+			handle:close()
+
+			return cmdresult
+		end
+
+		local result = require'fzf'.fzf(
+		M.get_faust2_names(), "--ansi --prompt 'faust2' --preview=" .. action(preview) .. " --preview-window right:50:wrap "
+		);
 		if result then
 			M.load_command(result[1])
 		end;
