@@ -59,10 +59,19 @@ And then if you want to use the snippets with snippets.nvim, import the snippets
 require'snippets'.snippets["faust"] = require'faust-nvim/snippets'
 ```
 
-# The Faust2 command
+## The Faust2 command
+![faust2](assets/faust2.png) 
 
 The plugin comes with the `:Faust2` command which will compile the file that you are in using any of the faust2appl-scripts.
 
 You can either run `:Faust2` to get a fuzzy finder selection of the different choices and execute the chosen one, or you can autocomplete the command by writing. For example by just typing `s` and hitting tab: `:Faust2 s<tab>`. Lastly, you can invoke the directly like so: `Faust2 puredata`.
 
 Additionally, anything after the chosen script's name is added to the invocation of the command as additional flags and arguments behind the scenes. For example, to compile SuperCollider UGen's with the `-s` (for SuperNova) option: `:Faust2 sc.py -s`.
+
+## Help files
+![delays help tag](assets/help_tags.png) 
+
+By running `:FaustGenerateHelp`, faust-nvim will download a binary to convert markdown files to vim files and convert all faust library files to vim help. After this, it is possible to open the faust documentation as if it was any other vim help file, eg `:h delays`.
+
+If you have FzfLua installed (recommended) or similar fuzzy finders that can search through help_tags in neovim, you can run commands such as `:FzfLua help_tags` and fuzzy search for the documentation, eg try typing `limiter`.
+
