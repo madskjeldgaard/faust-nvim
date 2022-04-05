@@ -17,6 +17,7 @@
 - Nvim >= v0.5
 - faust
 - [nvim-fzf](https://github.com/vijaymarupudi/nvim-fzf)
+- wget and tar (for help file converter)
 
 # installation
 Using vim-plug

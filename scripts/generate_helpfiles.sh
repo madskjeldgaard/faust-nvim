@@ -23,9 +23,9 @@ function detect_architecture(){
 		fi
 	elif [[ "$OSTYPE" == "darwin"* ]]; then
 		# MACOS
-		ARCHICTECTURE="darwin_amd64" 
+		ARCHICTECTURE="darwin_amd64"
 	elif [[ "$OSTYPE" == "cygwin" ]]; then
-		ARCHICTECTURE="windows_amd64" 
+		ARCHICTECTURE="windows_amd64"
 	else
 		echo "$OSTYPE unknown" && exit 1
 	fi
@@ -34,8 +34,10 @@ function detect_architecture(){
 
 function get_converter(){
 	CFILE="md2vim_$ARCHICTECTURE.tar.gz"
-	URL="https://foosoft.net/projects/md2vim/dl/$CFILE"
-	CONVERTER=$DATADIR/${CFILE%.tar.gz}/md2vim
+	RELEASE_TAG="21.12.14.0"
+	URL="https://github.com/FooSoft/md2vim/releases/download/$RELEASE_TAG/$CFILE"
+	# URL="https://github.com/FooSoft/md2vim/releases/download/latest/$CFILE"
+	CONVERTER=$DATADIR/md2vim
 
 	if [[ ! -f "$CONVERTER" ]]; then
 		wget $URL --directory-prefix=$DATADIR/ &&\
@@ -66,10 +68,10 @@ function faustlib2markdownfiles(){
 		FAUSTHELPFILE="$HELPDIR/${FAUSTFILE%.lib}.txt"
 
 		# Convert faust lib to markdown (sed command removes extranous ticks)
-		faust2md "$FAUSTLIB/$FAUSTFILE"	| sed 's/`//g' > $FAUSTMD 
+		faust2md "$FAUSTLIB/$FAUSTFILE"	| sed 's/`//g' > $FAUSTMD
 
 		# Call converter and create
-		$CONVERTER -desc="Faust library documentation" $FAUSTMD $FAUSTHELPFILE 
+		$CONVERTER -desc="Faust library documentation" $FAUSTMD $FAUSTHELPFILE
 
 		# Create footer
 		echo "vim:tw=78:ts=8:ft=help:norl:" >> $FAUSTHELPFILE

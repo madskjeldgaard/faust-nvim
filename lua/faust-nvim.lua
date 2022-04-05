@@ -89,6 +89,7 @@ M.is_windows = vim.loop.os_uname().sysname:match('Windows')
 M.path_sep = M.is_windows and '\\' or '/'
 
 --- Get the root directory of the plugin.
+-- FIXME: This only works if the plugin is inside of the pack path
 function M.get_faust_nvim_root_dir()
   local package_path = debug.getinfo(1).source:gsub('@', '')
   package_path = vim.split(package_path, M.path_sep, true)
@@ -135,7 +136,7 @@ function M.generate_faust_docs()
 	M.terminal(plugin_dir .. "/scripts/generate_helpfiles.sh " .. plugin_dir)
 
 	-- @FIXME this results in tons of "duplicate tags" errors
-	vim.fn.helptags(plugin_dir .. "/doc")
+	vim.cmd("helptags " .. plugin_dir .. "/doc")
 end
 
 function M.post_install()
