@@ -14,49 +14,27 @@
 
 # Requirements
 - MacOS or linux system
-- Nvim >= v0.5
+- Nvim >= v0.6, there is support for 0.7 autocmd, filetype, etc.
 - faust
 - [nvim-fzf](https://github.com/vijaymarupudi/nvim-fzf)
 - wget and tar (for help file converter)
 
 # installation
-Using vim-plug
-
-```
-" faust syntax and filetype
-Plug 'gmoe/vim-faust'
-
-" Other faust things
-Plug 'madskjeldgaard/faust-nvim'
-```
 
 Using packer.nvim
 ```lua
 use {
     'madskjeldgaard/faust-nvim',
-        ft = "faust", -- only load plugin on .dsp files
 		-- run = require'faust-nvim'.post_install, -- Generate documentation etc (currently doesn't work it seems)
         config = function()
             require 'faust-nvim'.setup()
+            require 'faust-nvim'.load_snippets()
         end,
         requires = {
-			'gmoe/vim-faust',
-			'vijaymarupudi/nvim-fzf'
+			'vijaymarupudi/nvim-fzf',
+            'L3MON4D3/LuaSnip'
 		}
 }
-```
-
-# Setup
-
-call the .setup function via lua:
-```lua
-require 'faust-nvim'.setup()
-```
-
-And then if you want to use the snippets with snippets.nvim, import the snippets to your global snippets-table:
-
-```lua
-require'snippets'.snippets["faust"] = require'faust-nvim/snippets'
 ```
 
 ## Options
