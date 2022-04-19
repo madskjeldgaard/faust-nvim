@@ -25,15 +25,15 @@ Using packer.nvim
 ```lua
 use {
     'madskjeldgaard/faust-nvim',
-		-- run = require'faust-nvim'.post_install, -- Generate documentation etc (currently doesn't work it seems)
         config = function()
-            require 'faust-nvim'.setup()
+            require 'faust-nvim'
             require 'faust-nvim'.load_snippets()
         end,
         requires = {
-			'vijaymarupudi/nvim-fzf',
+            'vijaymarupudi/nvim-fzf',
             'L3MON4D3/LuaSnip'
-		}
+        }--,
+        -- run = require'faust-nvim'.post_install, -- Generate documentation etc (currently doesn't work it seems)
 }
 ```
 
