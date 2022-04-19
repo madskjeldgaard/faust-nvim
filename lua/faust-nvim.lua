@@ -6,22 +6,65 @@ vim.g.faust2appls_dir = vim.g.faust2appls_dir or "/bin/"
 vim.g.faustlib_dir = vim.g.faustlib_dir or "/usr/share/faust/"
 local api = vim.api
 local vimcmd = api.nvim_command
+local fn = vim.fn
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
-function M.setup()
+U = require("faust-nvim.utils")
+
+if fn.has "nvim-0.7" == 1 then
+    if vim.g.do_filetype_lua == 1 then
+        vim.filetype.add {
+            extension = {
+                dsp = "faust",
+                lib = "faust"
+            }
+        }
+        augroup("Faust", {clear = true})
+        autocmd({"FileType"}, {
+            pattern = "faust",
+            callback = function ()
+                require'faust-nvim'.load()
+            end,
+            group = "Faust"
+        })
+    else
+        augroup("Faust", {clear = true})
+        autocmd({"BufRead", "BufEnter", "BufNewFile"}, {
+            pattern = "*.dsp",
+            command = 'setfiletype faust',
+            group = "Faust"
+        })
+        autocmd({"FileType"}, {
+            pattern = "faust",
+            callback = function ()
+                require'faust-nvim'.load()
+            end,
+            group = "Faust"
+        })
+    end
+else
+    api.nvim_exec([[
+    augroup Faust
+    autocmd!
+    autocmd BufRead,BufNewFile,BufEnter *.dsp setfiletype faust
+    autocmd BufRead,BufNewFile,BufEnter *.lib setlocal filetype=faust
+    autocmd FileType faust lua require'faust-nvim'.load()
+    augroup END
+    ]], true)
+end
+
+-- autocmd FileType faust setlocal commentstring=//\ %s
+
+function M.load()
 	-- Register commands
 	require'faust-nvim/commands'
 	require'faust-nvim/compiler'.register_command()
+end
 
-	-- If using Tim Pope's comment plugin
-	vim.cmd([[autocmd FileType faust setlocal commentstring=//\ %s]])
-
-	-- Set .lib filetypes to faust
-	vim.cmd([[autocmd BufEnter *.lib setlocal filetype=faust]])
-
-	-- Default keymaps
-	-- if mapkeys == true then
-	-- 	M.keymaps()
-	-- end
+function M.load_snippets()
+    local path = U.faust_nvim_root_dir .. U.path_sep .. "lua" .. U.path_sep .. "faust-nvim" .. U.path_sep .. "snippets"
+    require("luasnip.loaders.from_lua").load({paths = path})
 end
 
 function M.terminal(cmd, precmd)
@@ -63,66 +106,6 @@ end
 
 function M.faustexamples()
 	vim.cmd(":FZF " .. faustexamples)
-end
-
-------------------
---- Table
-------------------
-
---- Get table length
-function M.tbl_len(T)
-  local count = 0
-  for _ in pairs(T) do
-    count = count + 1
-  end
-  return count
-end
-
-------------------
---- Path
-------------------
-
--- This stuff is from scnvim, thanks scnvim!
---- Get the system path separator
-M.is_windows = vim.loop.os_uname().sysname:match('Windows')
-M.path_sep = M.is_windows and '\\' or '/'
-
---- Get the root directory of the plugin.
--- FIXME: This only works if the plugin is inside of the pack path
-function M.get_faust_nvim_root_dir()
-  local package_path = debug.getinfo(1).source:gsub('@', '')
-  package_path = vim.split(package_path, M.path_sep, true)
-  -- find index of plugin root dir
-  local index = 1
-  for i, v in ipairs(package_path) do
-    if v == 'faust-nvim' then
-      index = i
-      break
-    end
-  end
-  local path_len = M.tbl_len(package_path)
-  if index == 1 or index == path_len then
-    error('[faust-nvim] could not find plugin root dir')
-  end
-  local path = {}
-  for i, v in ipairs(package_path) do
-    if i > index then
-      break
-    end
-    path[i] = v
-  end
-  local dir = ''
-  for _, v in ipairs(path) do
-    -- first element is empty on unix
-    if v == '' then
-      dir = M.path_sep
-    else
-      dir = dir .. v .. M.path_sep
-    end
-  end
-  assert(dir ~= '', '[faust-nvim] Could not get faust-nvim root path')
-  dir = dir:sub(1, -2) -- delete trailing slash
-  return dir
 end
 
 -- ------------------
