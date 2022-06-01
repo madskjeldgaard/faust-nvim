@@ -36,7 +36,8 @@ function M.get_faust2_names()
 end
 
 function M.load_command(...)
-	local args = table.pack(...)
+    local args = {...}
+
 	local command = args[1]
 
 	-- Remove command from argument list
