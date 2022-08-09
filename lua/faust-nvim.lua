@@ -60,6 +60,7 @@ function M.load()
 	-- Register commands
 	require'faust-nvim/commands'
 	require'faust-nvim/compiler'.register_command()
+	require'faust-nvim/overseer_tasks'
 end
 
 function M.load_snippets()

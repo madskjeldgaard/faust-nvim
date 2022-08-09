@@ -7,7 +7,7 @@ if status then
 		builder = function(params)
 			return {
 				cmd = {'faust2sc.py'},
-				args = {},
+				args = {"-s", vim.fn.expand("%")},
 				name = "faust2sc",
 				cwd = "",
 				env = {},
